@@ -1,0 +1,3 @@
+vars:
+        ProjectName: 'container-build'
+        ServiceRoleArn: 'arn:aws:iam::346135719058:role/CloudFormation-Codebuild-role' 
