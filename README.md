@@ -1,24 +1,22 @@
-codecommit, into codepipeline, which uses code build to push to EC2 container registry, managed by cloudformation
+# AWS Docker Build Pipeline
+An example CloudFormation implementation of a multi-environment, serverless CI environment using CodePipeline, CodeBuild and CodeCommit.
 
-Requirements
+#Requirements
 * php (I installed php 5.6, needed for composer and stackformation)
 * composer
-* stackformation https://stackformation.readthedocs.io/en/latest/GettingStarted/index.html
+* [StackFormation](https://stackformation.readthedocs.io/en/latest/GettingStarted/index.html)
 
 # Setup
-
 Install StackFormation dependencies:
 (https://stackformation.readthedocs.io/en/latest/)
 
-./bin/composer install
+Run: `./bin/composer install`
 
 (On my Fedora 24 machine I also had to install php-xml, jq and make sure date.timezone was populated in /etc/php.ini)
 
-* Run "vendor/bin/stackformation.php setup" and populate with AMI keys.
-
+* Run `vendor/bin/stackformation.php setup` and populate with AMI keys with enough permissions to create CloudFormation stacks.
 
 # Repository Setup
-
 You need to create an environment specific repository:
 
 `export Environment=live && vendor/bin/stackformation.php blueprint:deploy '{env:Environment}-{var:ProjectName}-repository'`
@@ -26,7 +24,6 @@ You need to create an environment specific repository:
 After creating the Codecommit stack, you need to initialise the repository manually and create a branch. I pushed to master manually.
 
 # CodeBuild Setup
-
 You need to manually create a service role for CloudFormation to assume. I can't find any way to automate this.
 
 Login to an AWS root/Administrator account. Navigate to IAM, Policies, Create Your Own Policy. 
