@@ -1,0 +1,11 @@
+blueprints:
+        - stackname: '{var:ProjectName}-build-pipeline'
+          template: codepipeline.json
+          Capabilities: 'CAPABILITY_IAM'
+          parameters:
+                  SourceRepositoryName: '{var:ProjectName}-app-code'
+                  ArtifactBucketName: '{var:ProjectName}-artifact-bucket'
+                  SourceBranchName: master
+                  BuildProjectName: '{var:ProjectName}-build-task'
+                  TestProjectName: '{var:ProjectName}-test-task'
+                  ServiceRoleArn: '{var:ServiceRoleArn}'

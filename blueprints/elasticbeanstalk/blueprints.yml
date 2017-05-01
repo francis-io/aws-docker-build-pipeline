@@ -1,0 +1,6 @@
+blueprints:
+        - stackname: '{var:ProjectName}-elasticbeanstalk'
+          template: elasticbeanstalk.json
+          parameters:
+                  ApplicationName: PythonApp
+                  EnvironmentName: WebTier

@@ -5,10 +5,22 @@
     "RepositoryName": {
       "Type": "String"
     },
-    "IntermediateECRName": {
+    "WipEcrIntermediateName": {
       "Type": "String"
     },
-    "ECRName": {
+    "DemoEcrIntermediateName": {
+      "Type": "String"
+    },
+    "LiveEcrIntermediateName": {
+      "Type": "String"
+    },
+    "WipEcrName": {
+      "Type": "String"
+    },
+    "DemoEcrName": {
+      "Type": "String"
+    },
+    "LiveEcrName": {
       "Type": "String"
     }
   },
@@ -22,11 +34,11 @@
         "RepositoryDescription": "An example repository."
       }
     },
-    "IntermediateECR": {
+    "WipEcr": {
       "Type": "AWS::ECR::Repository",
       "Properties": {
         "RepositoryName": {
-          "Ref": "IntermediateECRName"
+          "Ref": "WipEcrName"
         },
         "RepositoryPolicyText": {
           "Version": "2012-10-17",
@@ -49,11 +61,11 @@
         }
       }
     },
-    "ECR": {
+    "DemoEcr": {
       "Type": "AWS::ECR::Repository",
       "Properties": {
         "RepositoryName": {
-          "Ref": "ECRName"
+          "Ref": "DemoEcrName"
         },
         "RepositoryPolicyText": {
           "Version": "2012-10-17",
@@ -73,26 +85,37 @@
               ]
             }
           ]
-        }
+        }                                                                                                                                                                     
+      }
+    },
+    "LiveEcr": {
+      "Type": "AWS::ECR::Repository",
+      "Properties": {
+        "RepositoryName": {
+          "Ref": "LiveEcrName"
+        },
+        "RepositoryPolicyText": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "CodeBuildAccess",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": [
+                  "arn:aws:iam::570169269855:root"
+                ]
+              },
+              "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability"
+              ]
+            }
+          ]
+        }                                                                                                                                                                     
       }
     }
   },
   "Outputs": {
-    "RepositoryArn": {
-      "Value": {
-        "Fn::GetAtt": [
-          "Repository",
-          "Arn"
-        ]
-      }
-    },
-    "CloneUrl": {
-      "Value": {
-        "Fn::GetAtt": [
-          "Repository",
-          "CloneUrlSsh"
-        ]
-      }
-    }
   }
 }

@@ -1,7 +1,0 @@
-blueprints:
-        - stackname: '{env:Environment}-{var:ProjectName}-repository'
-          template: codecommit.json
-          parameters:
-                  RepositoryName: '{env:Environment}-{var:ProjectName}'
-                  IntermediateECRName: '{env:Environment}-{var:ProjectName}-intermediate'
-                  ECRName: '{env:Environment}-{var:ProjectName}'

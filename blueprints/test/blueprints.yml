@@ -1,9 +1,0 @@
-blueprints:
-        - stackname: '{env:Environment}-{var:ProjectName}-test'
-          template: codebuild.json
-          parameters:
-                  SourceRepositoryUrl: 'https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/{env:Environment}-{var:ProjectName}'
-                  BuildTaskProjectName: '{env:Environment}-{var:ProjectName}-build'
-                  ServiceRoleArn: '{var:ServiceRoleArn}'
-
-                  #have the environment be the container built

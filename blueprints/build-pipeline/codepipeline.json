@@ -1,0 +1,102 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "A stack to create a CodePipeline.",
+  "Parameters": {
+    "SourceRepositoryName": {
+      "Type": "String"
+    },
+    "SourceBranchName": {
+      "Type": "String"
+    },
+    "BuildProjectName": {
+      "Type": "String"
+    },
+    "TestProjectName": {
+      "Type": "String"
+    },
+    "ServiceRoleArn": {
+      "Type": "String"
+    },
+    "ArtifactBucketName": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "ArtifactStoreBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {"Ref": "ArtifactBucketName"}
+      }
+    },
+    "BuildPipeline": {
+      "Type": "AWS::CodePipeline::Pipeline",
+      "Properties": {
+        "RoleArn": {
+          "Ref": "ServiceRoleArn"
+        },
+        "Stages": [
+          {
+            "Name": "Source",
+            "Actions": [
+              {
+                "Name": "SourceAction",
+                "ActionTypeId": {
+                  "Category": "Source",
+                  "Owner": "AWS",
+                  "Version": "1",
+                  "Provider": "CodeCommit"
+                },
+                "OutputArtifacts": [
+                  {
+                    "Name": "SourceOutput"
+                  }
+                ],
+                "Configuration": {
+                  "BranchName": {
+                    "Ref": "SourceBranchName"
+                  },
+                  "RepositoryName": {
+                    "Ref": "SourceRepositoryName"
+                  }
+                },
+                "RunOrder": 1
+              }
+            ]
+          },
+          {
+            "Name": "Build",
+            "Actions": [
+              {
+                "Name": "BuildAction",
+                "InputArtifacts": [
+                  {
+                    "Name": "SourceOutput"
+                  }
+                ],
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Version": "1",
+                  "Provider": "CodeBuild"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "BuildProjectName"
+                  }
+                },
+                "RunOrder": 2
+              }
+            ]
+          }
+        ],
+        "ArtifactStore": {
+          "Type": "S3",
+          "Location": {
+            "Ref": "ArtifactStoreBucket"
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {}
+}
