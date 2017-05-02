@@ -10,7 +10,7 @@ An example CloudFormation implementation of a multi-environment, serverless CI e
 - [ ] Working docker ElasticBeanstalk environment.
 - [ ] Finalize method to migrate containers between environments.
 - [ ] Blue/Green deployments and rollback plan.
-- [ ] Commit example Code and build config.
+- [x] Commit example Code and build config. Added to example-code dir.
 
 # Requirements
 * php (I installed php 5.6, needed for composer and stackformation)
