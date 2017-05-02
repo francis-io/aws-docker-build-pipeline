@@ -19,7 +19,7 @@ Run: `./bin/composer install`
 # Repository Setup
 You need to create an environment specific repository:
 
-`export Environment=live && vendor/bin/stackformation.php blueprint:deploy '{env:Environment}-{var:ProjectName}-repository'`
+`vendor/bin/stackformation.php blueprint:deploy '{var:ProjectName}-repository'`
 
 After creating the Codecommit stack, you need to initialise the repository manually and create a branch. I pushed to master manually.
 
