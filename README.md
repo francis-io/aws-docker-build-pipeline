@@ -1,6 +1,8 @@
 # AWS Docker Build Pipeline
 An example CloudFormation implementation of a multi-environment, serverless CI environment using CodePipeline, CodeBuild and CodeCommit.
 
+![doagram](https://raw.githubusercontent.com/francis-io/aws-docker-build-pipeline/master/images/diagram.png)
+
 # Requirements
 * php (I installed php 5.6, needed for composer and stackformation)
 * composer
@@ -15,6 +17,8 @@ Run: `./bin/composer install`
 (On my Fedora 24 machine I also had to install php-xml, jq and make sure date.timezone was populated in /etc/php.ini)
 
 * Run `vendor/bin/stackformation.php setup` and populate with AMI keys with enough permissions to create CloudFormation stacks.
+
+
 
 # Repository Setup
 You need to create an environment specific repository:
