@@ -1,5 +1,5 @@
 vars:
-        ProjectName: 'docker'
+        ProjectName: 'demo-app'
         ServiceRoleArn: 'arn:aws:iam::346135719058:role/CloudFormation-Codebuild-role'
         Region: eu-west-1
         AccountId: 346135719058

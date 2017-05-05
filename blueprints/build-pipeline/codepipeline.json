@@ -1,102 +1,152 @@
 {
-  "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "A stack to create a CodePipeline.",
-  "Parameters": {
-    "SourceRepositoryName": {
-      "Type": "String"
-    },
-    "SourceBranchName": {
-      "Type": "String"
-    },
-    "BuildProjectName": {
-      "Type": "String"
-    },
-    "TestProjectName": {
-      "Type": "String"
-    },
-    "ServiceRoleArn": {
-      "Type": "String"
-    },
-    "ArtifactBucketName": {
-      "Type": "String"
-    }
-  },
-  "Resources": {
-    "ArtifactStoreBucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketName": {"Ref": "ArtifactBucketName"}
-      }
-    },
-    "BuildPipeline": {
-      "Type": "AWS::CodePipeline::Pipeline",
-      "Properties": {
-        "RoleArn": {
-          "Ref": "ServiceRoleArn"
-        },
-        "Stages": [
-          {
-            "Name": "Source",
-            "Actions": [
-              {
-                "Name": "SourceAction",
-                "ActionTypeId": {
-                  "Category": "Source",
-                  "Owner": "AWS",
-                  "Version": "1",
-                  "Provider": "CodeCommit"
-                },
-                "OutputArtifacts": [
-                  {
-                    "Name": "SourceOutput"
-                  }
-                ],
-                "Configuration": {
-                  "BranchName": {
-                    "Ref": "SourceBranchName"
-                  },
-                  "RepositoryName": {
-                    "Ref": "SourceRepositoryName"
-                  }
-                },
-                "RunOrder": 1
-              }
-            ]
-          },
-          {
-            "Name": "Build",
-            "Actions": [
-              {
-                "Name": "BuildAction",
-                "InputArtifacts": [
-                  {
-                    "Name": "SourceOutput"
-                  }
-                ],
-                "ActionTypeId": {
-                  "Category": "Build",
-                  "Owner": "AWS",
-                  "Version": "1",
-                  "Provider": "CodeBuild"
-                },
-                "Configuration": {
-                  "ProjectName": {
-                    "Ref": "BuildProjectName"
-                  }
-                },
-                "RunOrder": 2
-              }
-            ]
-          }
-        ],
-        "ArtifactStore": {
-          "Type": "S3",
-          "Location": {
-            "Ref": "ArtifactStoreBucket"
-          }
-        }
-      }
-    }
-  },
-  "Outputs": {}
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "A stack to create a CodePipeline.",
+	"Parameters": {
+		"SourceRepositoryName": {
+			"Type": "String"
+		},
+		"SourceBranchName": {
+			"Type": "String"
+		},
+		"BuildProjectName": {
+			"Type": "String"
+		},
+		"TestProjectName": {
+			"Type": "String"
+		},
+		"ServiceRoleArn": {
+			"Type": "String"
+		},
+		"ArtifactBucketName": {
+			"Type": "String"
+		},
+		"DeployDevFunction": {
+			"Type": "String"
+		},
+		"DeployLiveFunction": {
+			"Type": "String"
+		}
+	},
+	"Resources": {
+		"ArtifactStoreBucket": {
+			"Type": "AWS::S3::Bucket",
+			"Properties": {
+				"BucketName": {
+					"Ref": "ArtifactBucketName"
+				}
+			}
+		},
+		"BuildPipeline": {
+			"Type": "AWS::CodePipeline::Pipeline",
+			"Properties": {
+				"RoleArn": {
+					"Ref": "ServiceRoleArn"
+				},
+				"Stages": [{
+						"Name": "Source",
+						"Actions": [{
+							"Name": "SourceAction",
+							"ActionTypeId": {
+								"Category": "Source",
+								"Owner": "AWS",
+								"Version": "1",
+								"Provider": "CodeCommit"
+							},
+							"OutputArtifacts": [{
+								"Name": "SourceOutput"
+							}],
+							"Configuration": {
+								"BranchName": {
+									"Ref": "SourceBranchName"
+								},
+								"RepositoryName": {
+									"Ref": "SourceRepositoryName"
+								}
+							},
+							"RunOrder": 1
+						}]
+					},
+					{
+						"Name": "Build",
+						"Actions": [{
+							"Name": "BuildAction",
+							"InputArtifacts": [{
+								"Name": "SourceOutput"
+							}],
+							"ActionTypeId": {
+								"Category": "Build",
+								"Owner": "AWS",
+								"Version": "1",
+								"Provider": "CodeBuild"
+							},
+							"Configuration": {
+								"ProjectName": {
+									"Ref": "BuildProjectName"
+								}
+							},
+							"RunOrder": 2
+						}]
+					},
+					{
+						"Name": "DeployToDev",
+						"Actions": [{
+							"Name": "DeployToDev",
+							"ActionTypeId": {
+								"Category": "Invoke",
+								"Owner": "AWS",
+								"Version": "1",
+								"Provider": "Lambda"
+							},
+							"Configuration": {
+								"FunctionName": {
+									"Ref": "DeployDevFunction"
+								}
+							},
+							"RunOrder": 3
+						}]
+					},
+					{
+						"Name": "ApproveDeployDevToLive",
+						"Actions": [{
+							"Name": "ApproveDeployDevToLive",
+							"ActionTypeId": {
+								"Category": "Approval",
+								"Owner": "AWS",
+								"Version": "1",
+								"Provider": "Manual"
+							},
+							"RunOrder": 4
+						}]
+					},
+					{
+						"Name": "DeployDevToLive",
+						"Actions": [{
+							"Name": "DeployDevToLive",
+							"ActionTypeId": {
+								"Category": "Invoke",
+								"Owner": "AWS",
+								"Version": "1",
+								"Provider": "Lambda"
+							},
+							"Configuration": {
+								"FunctionName": {
+									"Ref": "DeployLiveFunction"
+								}
+							},
+							"RunOrder": 5
+						}]
+
+					}
+				],
+				"ArtifactStore": {
+					"Type": "S3",
+					"Location": {
+						"Ref": "ArtifactStoreBucket"
+					}
+
+				}
+			}
+		}
+	},
+	"Outputs": {}
 }

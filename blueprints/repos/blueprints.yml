@@ -1,11 +1,6 @@
 blueprints:
-        - stackname: '{var:ProjectName}-app-repository'
+        - stackname: '{var:ProjectName}-repositories'
           template: codecommit.json
           parameters:
-                  RepositoryName: '{var:ProjectName}-app-code'
-                  WipEcrIntermediateName: 'wip-{var:ProjectName}-intermediate'
-                  WipEcrName: 'wip-{var:ProjectName}'
-                  DemoEcrIntermediateName: 'demo-{var:ProjectName}-intermediate'
-                  DemoEcrName: 'demo-{var:ProjectName}'
-                  LiveEcrIntermediateName: 'live-{var:ProjectName}-intermediate'
-                  LiveEcrName: 'live-{var:ProjectName}'
+                  RepositoryName: '{var:ProjectName}-code'
+                  EcrName: '{var:ProjectName}'

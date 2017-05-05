@@ -5,22 +5,7 @@
     "RepositoryName": {
       "Type": "String"
     },
-    "WipEcrIntermediateName": {
-      "Type": "String"
-    },
-    "DemoEcrIntermediateName": {
-      "Type": "String"
-    },
-    "LiveEcrIntermediateName": {
-      "Type": "String"
-    },
-    "WipEcrName": {
-      "Type": "String"
-    },
-    "DemoEcrName": {
-      "Type": "String"
-    },
-    "LiveEcrName": {
+    "EcrName": {
       "Type": "String"
     }
   },
@@ -34,11 +19,11 @@
         "RepositoryDescription": "An example repository."
       }
     },
-    "WipEcr": {
+    "EcrRepo": {
       "Type": "AWS::ECR::Repository",
       "Properties": {
         "RepositoryName": {
-          "Ref": "WipEcrName"
+          "Ref": "EcrName"
         },
         "RepositoryPolicyText": {
           "Version": "2012-10-17",
@@ -59,60 +44,6 @@
             }
           ]
         }
-      }
-    },
-    "DemoEcr": {
-      "Type": "AWS::ECR::Repository",
-      "Properties": {
-        "RepositoryName": {
-          "Ref": "DemoEcrName"
-        },
-        "RepositoryPolicyText": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Sid": "CodeBuildAccess",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": [
-                  "arn:aws:iam::570169269855:root"
-                ]
-              },
-              "Action": [
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "ecr:BatchCheckLayerAvailability"
-              ]
-            }
-          ]
-        }                                                                                                                                                                     
-      }
-    },
-    "LiveEcr": {
-      "Type": "AWS::ECR::Repository",
-      "Properties": {
-        "RepositoryName": {
-          "Ref": "LiveEcrName"
-        },
-        "RepositoryPolicyText": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Sid": "CodeBuildAccess",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": [
-                  "arn:aws:iam::570169269855:root"
-                ]
-              },
-              "Action": [
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "ecr:BatchCheckLayerAvailability"
-              ]
-            }
-          ]
-        }                                                                                                                                                                     
       }
     }
   },

@@ -112,3 +112,8 @@ Login to an AWS root/Administrator account. Navigate to IAM, Policies, Create Yo
 Create a Role, Create New Role. Select "AWS Service Role" Amazon EC2. Search and select the previously created Service Policy. Once created, edit the role, Trust Relationship. Change the service from "ec2.amazonaws.com" to "codebuild.amazonaws.com". Note the ARN for this role in the global blueprints.yml file.
 
 The policy name can be added to the root blueprint.yml file.
+
+## Adding tags to ECR images
+MANIFEST=$(aws ecr batch-get-image --repository-name wip-docker --image-ids imageTag=latest --query images[].imageManifest --output text)
+TAG=demo
+aws ecr put-image --repository-name wip-docker --image-tag $TAG --image-manifest "$MANIFEST" 

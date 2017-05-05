@@ -2,10 +2,10 @@ blueprints:
         - stackname: '{var:ProjectName}-build-task'
           template: codebuild.json
           parameters:
-                  SourceRepositoryUrl: 'https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/{env:Environment}-{var:ProjectName}'
+                  SourceRepositoryUrl: 'https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/{var:ProjectName}-code'
                   BuildTaskProjectName: '{var:ProjectName}-build-task'
                   ServiceRoleArn: '{var:ServiceRoleArn}'
                   Region: '{var:Region}'
                   AccountId: '{var:AccountId}'
-                  ImageRepoName: 'wip-{var:ProjectName}'
-                  ImageTag: latest 
+                  ImageRepoName: '{var:ProjectName}'
+                  ImageTag: dev 
