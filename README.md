@@ -8,7 +8,8 @@ An example CloudFormation implementation of a multi-environment, serverless CI e
 - [x] CodeBuild setup, pushing to ECR.
 - [x] CodePipeline sourcing the code repo and running CodeBuild.
 - [ ] Working docker ElasticBeanstalk environment.
-- [ ] Finalize method to migrate containers between environments.
+- [x] Finalize method to migrate containers between environments.
+- [ ] Write and deploy env migration lambda using tags.
 - [ ] Blue/Green deployments and rollback plan.
 - [x] Commit example Code and build config. Added to example-code dir.
 
