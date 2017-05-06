@@ -1,0 +1,5 @@
+blueprints:
+        - stackname: '{var:ProjectName}-deploy-lambda'
+          template: lambda.json
+          parameters:
+                  EcrName: '{var:ProjectName}'
