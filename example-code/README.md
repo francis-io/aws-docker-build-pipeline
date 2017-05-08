@@ -1,12 +1,1 @@
-# Testing 
-Fri 5 May 14:21:30 BST 2017
-Fri 5 May 14:21:35 BST 2017
-Fri 5 May 14:21:48 BST 2017
-Fri 5 May 14:40:26 BST 2017
-Fri 5 May 14:51:24 BST 2017
-Fri 5 May 14:57:42 BST 2017
-Fri 5 May 14:58:00 BST 2017
-Fri 5 May 15:24:44 BST 2017
-Fri 5 May 15:33:31 BST 2017
-Fri 5 May 15:33:37 BST 2017
-Fri 5 May 15:36:42 BST 2017
+# Basic Code repo 
