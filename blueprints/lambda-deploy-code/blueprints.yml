@@ -1,6 +1,6 @@
 blueprints:
-        - stackname: '{var:ProjectName}-deploy-lambda'
-          template: lambda.json
+        - stackname: '{var:ProjectName}-deploy-lambda-code'
+          template: lambda-deploy-code.json
           Capabilities: 'CAPABILITY_IAM'
           parameters:
                   EcrName: '{var:ProjectName}'

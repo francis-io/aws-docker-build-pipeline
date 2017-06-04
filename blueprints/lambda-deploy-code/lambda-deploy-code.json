@@ -1,0 +1,27 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "A stack to create a pair of lambda functions to deploy to dev and live environments.",
+  "Parameters": {
+    "EcrName": {
+      "Type": "String"
+    },
+    "EcrName": {
+      "Type": "String"
+    },
+    "ServiceRoleArn": {
+      "Type": "String"
+    },
+    "BucketName": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "S3Bucket": {
+  "Type": "AWS::S3::Bucket",
+  "Properties": {
+    "BucketName":{"Ref": "BucketName"}
+      }
+    }
+  },
+  "Outputs": {}
+}

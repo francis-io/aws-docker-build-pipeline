@@ -119,9 +119,9 @@
 						}]
 					},
 					{
-						"Name": "DeployDevToLive",
+						"Name": "TagDevAsLive",
 						"Actions": [{
-							"Name": "DeployDevToLive",
+							"Name": "TagDevAsLive",
 							"ActionTypeId": {
 								"Category": "Invoke",
 								"Owner": "AWS",
